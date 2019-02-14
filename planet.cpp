@@ -5,7 +5,7 @@
 #include "star.h"
 
 Planet::Planet(int distance){
-	this->id = id;
+	this->id = this;
 	this->distance = distance;
     	this->pos = rand() % 360;
 	int randInd = rand() % 3;
