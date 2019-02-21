@@ -1,11 +1,11 @@
 
 #include <cstdlib>
 #include <cstdio>
-#include "planet.h"
-#include "star.h"
+#include "Planet.h"
+#include "Star.h"
 
 Planet::Planet(int distance){
-	this->id = this;
+	this->id = (unsigned long) this;
 	this->distance = distance;
     	this->pos = rand() % 360;
 	int randInd = rand() % 3;

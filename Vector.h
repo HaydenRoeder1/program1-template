@@ -1,6 +1,6 @@
-#include <stdlib>
+#include <cstdlib>
 #include <iostream>
-#include "planet.h"
+#include "Planet.h"
 
 class Vector{
 	private:

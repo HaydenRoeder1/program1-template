@@ -1,4 +1,5 @@
-#include "list.h"
+#include <cstdlib>
+#include "List.h"
 Node::Node(Planet * p){
 	this->p = p;
 	this->next = NULL;
@@ -10,7 +11,7 @@ List::List(){
 	this->tail = NULL;
 	this->size = 0;
 }
-List::~List(){//fix this
+List::~List(){
 	while(head != NULL){
 		current = head->next;
 		delete head;
@@ -41,10 +42,10 @@ void List::insert(int index, Planet * p){
 		i++;
 	}
 	last->next = nodeToAdd;
-	nodetoAdd->next = current;
+	nodeToAdd->next = current;
 }
-Planet* read(int index){
-	if(index > size || index < 0){
+Planet* List::read(int index){
+	if((unsigned int) index > size || index < 0){
 		return NULL;
 	}
 	current = head;
@@ -55,7 +56,7 @@ Planet* read(int index){
 	}
 	return current->p;
 }
-bool remove(int index){
+bool List::remove(int index){
 	if(index > size || index < 0){
 		return false;
 	}

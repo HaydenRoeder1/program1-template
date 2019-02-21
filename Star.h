@@ -1,6 +1,6 @@
 #ifndef HEADER_STAR_HR
 #define HEADER_STAR_HR
-#include "planet.h"
+#include "Planet.h"
 class Star{
 	private:
         int current_planets;

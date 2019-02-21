@@ -7,19 +7,19 @@ public:
 	Node * next;
 	Node * prev;
 	Node(Planet *);
-}
+};
 class List{
 private:
 	Node * head, * tail, * current;
-	unsigned size;
+	unsigned int size;
 public:
 	List();
 	~List();
 	void insert(int index, Planet * p);
 	Planet* read(int index);
 	bool remove(int index);
-	unsigned size(){return size;}
+	unsigned int getSize(){return size;}
 	
-}
+};
 
 #endif

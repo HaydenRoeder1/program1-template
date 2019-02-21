@@ -1,8 +1,8 @@
 
 #include <cstdlib>
 #include <cstdio>
-#include "planet.h"
-#include "star.h"
+#include "Planet.h"
+#include "Star.h"
 
 /*Star*/
 Star::Star(){
@@ -14,33 +14,45 @@ Star::~Star(){
 	for(int i = 0; i < current_planets; i++){
 		delete planets[i];
 	}
-	free(planets);
+
+
+	delete[] this->planets;
+	
+	
 }
 long int Star::addPlanet(){
+	if(this->planets == NULL){
+		this->current_planets++;
+		this->planets = new Planet*[1];
+		this->next_id++;
+		this->planets[0] = new Planet(rand() % 3000);
+		return this->planets[0]->getID();
+	}
 	this->current_planets++;
-	Planet * newPlanets[] = new Planet[this->current_planets];
+	Planet ** newPlanets = new Planet*[this->current_planets];
 	for(int i = 0; i < this->current_planets - 1; i++){
 		newPlanets[i] = this->planets[i];
 	}
 	this->next_id++;
-	Planet * planetToAdd = new Planet(rand() % 3000);
+	Planet * planetToAdd = new Planet(this->next_id);
 	newPlanets[current_planets - 1] = planetToAdd;
-	delete this->planets;
+	delete[] this->planets;
 	this->planets = newPlanets;
 	return planetToAdd->getID();
 }
 bool Star::removePlanet(int id){
 	for(int i = 0; i < this->current_planets; i++){
 		if((*(this->planets[i])).getID() == id){
-			Planet * newArr[this->current_planets - 1];
-			for(int x = 0; x < current_planets - 1; x++){
+			Planet ** newArr = new Planet*[this->current_planets - 1];
+			for(int x = 0, j = 0; x < current_planets; x++){
 				if(x == i){
 					delete this->planets[x];
 					continue;
 				}
-				newArr[x] = this->planets[x];
+				newArr[j] = this->planets[x];
+				j++;
 			}
-			delete this->planets;
+			delete[] this->planets;
 			this->planets = newArr;
 			this->current_planets--;
 			return true;		
@@ -74,7 +86,7 @@ void Star::printStarInfo(){
 	printf("The star currently has %d planets.\n", this->current_planets);
 	printf("Planets:\n");
 	for(int i = 0; i < this->current_planets; i++){
-		printf("\t Planet %c%d is %d million miles away at position %d around the star.\n",
+		printf("\t Planet %c%lu is %d million miles away at position %d around the star.\n",
 			this->planets[i]->getType(),
 			this->planets[i]->getID(),
 			this->planets[i]->getDistance(),
